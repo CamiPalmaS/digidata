@@ -55,10 +55,10 @@ public record DigimonData(
                 .orElse("No description available.")
                 : "No description available.";
 
-        String wrappedDescription = wrapText(englishDescription, 70);
+        String wrappedDescription = wrapText(englishDescription, 80);
         String skillList = skills != null
                 ? skills.stream()
-                .map(skill -> "- " + skill.skill() + ": " + wrapText(skill.description(), 70))
+                .map(skill -> "- " + skill.skill() + ": " + wrapText(skill.description(), 80))
                 .collect(Collectors.joining("\n"))
                 : "No skills listed.";
 
