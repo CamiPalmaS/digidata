@@ -1,5 +1,6 @@
 package com.palma.digidata.principal;
 
+import com.palma.digidata.model.DigimonData;
 import com.palma.digidata.service.ConectionAPI;
 import com.palma.digidata.service.DataConversor;
 
@@ -18,19 +19,19 @@ public class Principal {
         System.out.println("For combine names, you should use a space between,");
         System.out.println("(for example: Were Garurumon");
         var name = keyboard.nextLine().trim().toLowerCase();
-        System.out.println(name);
+        //System.out.println(name);
         var json = "";
         if (!name.isEmpty()) {
             // Codificar espacios y otros caracteres especiales
             String encodedName = name.replace(" ", "%20");
-            System.out.println(encodedName);
+            //System.out.println(encodedName);
             json = conectionAPI.obtainData(URL_BASE + encodedName);
 
         } else {
             System.out.println("You must enter a name.");
         }
-        //var data = conversor.obtainData(json, DataConversor.class);
-        System.out.println(json);
+        var data = conversor.obtainData(json, DigimonData.class);
+        System.out.println(data.toString());
 
     }
 }
