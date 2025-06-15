@@ -17,6 +17,26 @@ public record DigimonData(
         List<Description> descriptions,
         List<Skill> skills
 ) {
+    //limit number of characters per line
+    private static String wrapText(String text, int maxLineLength) {
+        StringBuilder result = new StringBuilder();
+        int index = 0;
+        while (index < text.length()) {
+            int nextBreak = Math.min(index + maxLineLength, text.length());
+
+            if (nextBreak < text.length() && text.charAt(nextBreak) != ' ') {
+                int lastSpace = text.lastIndexOf(' ', nextBreak);
+                if (lastSpace > index) {
+                    nextBreak = lastSpace;
+                }
+            }
+
+            result.append(text, index, nextBreak).append("\n");
+            index = nextBreak + 1;
+        }
+        return result.toString();
+    }
+
     @Override
     public String toString() {
         String levelStr = levels != null && !levels.isEmpty() ? levels.get(0).level() : "Unknown";
@@ -35,9 +55,10 @@ public record DigimonData(
                 .orElse("No description available.")
                 : "No description available.";
 
+        String wrappedDescription = wrapText(englishDescription, 70);
         String skillList = skills != null
                 ? skills.stream()
-                .map(skill -> "- " + skill.skill() + ": " + skill.description())
+                .map(skill -> "- " + skill.skill() + ": " + wrapText(skill.description(), 70))
                 .collect(Collectors.joining("\n"))
                 : "No skills listed.";
 
@@ -53,8 +74,8 @@ public record DigimonData(
                 📖 Description:
                 %s
 
-                🥋 Skills:
+                ⚔️ Skills:
                 %s
-                """, id, name, levelStr, typeStr, attributeStr, imageUrl, englishDescription, skillList);
+                """, id, name, levelStr, typeStr, attributeStr, imageUrl, wrappedDescription, skillList);
     }
 }

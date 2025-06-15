@@ -15,9 +15,13 @@ public class Principal {
     private Scanner keyboard = new Scanner(System.in);
 
     public void showMenu() {
-        System.out.println("Write the name to search for a digimon.");
-        System.out.println("For combine names, you should use a space between,");
-        System.out.println("(for example: Were Garurumon");
+        System.out.println("╔════════════════════════════════════════════╗");
+        System.out.println("║ ✨ Welcome to the Digimon Search Tool! ✨  ║");
+        System.out.println("╠════════════════════════════════════════════╣");
+        System.out.println("║ ✏️  Type the Digimon's name to begin.      ║");
+        System.out.println("║ ⚠️  Use a SPACE for compound names.        ║");
+        System.out.println("║         (e.g.: Were Garurumon)             ║");
+        System.out.println("╚════════════════════════════════════════════╝");
         var name = keyboard.nextLine().trim().toLowerCase();
         //System.out.println(name);
         var json = "";
